@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 # Muestra todos los comandos que se van ejecutando
 set -x
