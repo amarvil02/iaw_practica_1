@@ -6,6 +6,8 @@ set -x
 # Configuramos las variables
 #----------------------------------------------------
 PHPMYADMIN_APP_PASSWORD=123456
+APP_USER=usuario
+APP_PASSWORD=password
 #----------------------------------------------------
 # Actualizamos los repositorios
 apt update
@@ -21,3 +23,8 @@ echo "phpmyadmin phpmyadmin/app-password-confirm password $PHPMYADMIN_APP_PASSWO
 
 # Instalamos phpmyadmin
 sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl -y
+
+# Creamos un usuario que tenga acceso a todas las bases de datos
+mysql -u root <<< "DROP USER IF EXISTS '$APP_USER'@'%'"
+mysql -u root <<< "CREATE USER '$APP_USER'@'%' IDENTIFIED BY '$APP_PASSWORD';"
+mysql -u root <<< "GRANT ALL PRIVILEGES ON *.* TO '$APP_USER'@'%'";
