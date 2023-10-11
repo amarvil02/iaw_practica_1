@@ -38,3 +38,12 @@ mv /var/www/html/adminer/adminer-4.8.1-mysql.php /var/www/html/adminer/index.php
 
 # Modificamos el propietario y el grupo del directorio /var/www/html
 chown -R www-data:www-data /var/www/html
+
+# Instalamos GoAccess
+apt install goaccess -y
+
+# Creamos un directorio para los informes html de GoAccess
+mkdir -p /var/www/html/stats
+
+# Ejecutamos GoAccess en segundo plano
+goaccess /var/log/apache2/access.log -o /var/www/html/stats/index.html --log-format=COMBINED --real-time-html --daemonize
