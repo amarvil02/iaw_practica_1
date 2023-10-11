@@ -25,3 +25,16 @@ sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl -y
 mysql -u root <<< "DROP USER IF EXISTS '$APP_USER'@'%'"
 mysql -u root <<< "CREATE USER '$APP_USER'@'%' IDENTIFIED BY '$APP_PASSWORD';"
 mysql -u root <<< "GRANT ALL PRIVILEGES ON *.* TO '$APP_USER'@'%'";
+
+# Instalamos Adminer
+# Creamos el directorio para adminer
+mkdir -p /var/www/html/adminer
+
+# Descargamos el archivo de Adminer
+wget https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1-mysql.php -P /var/www/html/adminer
+
+# Renombramos el nombre del archivo en Adminer
+mv /var/www/html/adminer/adminer-4.8.1-mysql.php /var/www/html/adminer/index.php
+
+# Modificamos el propietario y el grupo del directorio /var/www/html
+chown -R www-data:www-data /var/www/html
