@@ -3,12 +3,9 @@
 # Muestra todos los comandos que se van ejecutando
 set -x
 
-# Configuramos las variables
-#----------------------------------------------------
-PHPMYADMIN_APP_PASSWORD=123456
-APP_USER=usuario
-APP_PASSWORD=password
-#----------------------------------------------------
+#Se importan las variables de configuración
+source .env
+
 # Actualizamos los repositorios
 apt update
 
