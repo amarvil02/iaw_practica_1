@@ -57,9 +57,13 @@ En el directorio scripts, crearemos un archivo llamado *install_tools.php* en es
 Antes de nada vamos a crear en scripts un archivo llamado *.env* con el siguiente contenido:
 
 PHPMYADMIN_APP_PASSWORD=123456
+<br>
 APP_USER=usuario
+<br>
 APP_PASSWORD=password
+<br>
 STATS_USERNAME=usuario
+<br>
 STATS_PASSWORD=password
 
 Esto servirá para tener la variables de configuración que usaremos más adelante en el script, para importar estas variables utilizaremos **source .env**. 
@@ -67,14 +71,19 @@ Esto servirá para tener la variables de configuración que usaremos más adelan
 En el siguiente paso configuraremos las respuestas de instalación de phpMyAdmin con el siguiente contenido:
 
 echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | debconf-set-selections
+<br>
 echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
+<br>
 echo "phpmyadmin phpmyadmin/mysql/app-pass password $PHPMYADMIN_APP_PASSWORD" | debconf-set-selections
+<br>
 echo "phpmyadmin phpmyadmin/app-password-confirm password $PHPMYADMIN_APP_PASSWORD" | debconf-set-selections
 
 Y una vez hecho esto, instalamos phpmyadmin, a través del comando **sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl -y** y también, creamos un usuario que tenga acceso a todas las bases de datos con:
 
 mysql -u root <<< "DROP USER IF EXISTS '$APP_USER'@'%'"
+<br>
 mysql -u root <<< "CREATE USER '$APP_USER'@'%' IDENTIFIED BY '$APP_PASSWORD';"
+<br>
 mysql -u root <<< "GRANT ALL PRIVILEGES ON *.* TO '$APP_USER'@'%'";
 
 Las variables que hemos configurado antes serán utilizadas en estos pasos.
