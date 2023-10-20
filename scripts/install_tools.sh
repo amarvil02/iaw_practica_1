@@ -58,3 +58,9 @@ cp ../conf/000-default-stats.conf /etc/apache2/sites-available/000-default.conf
 
 # Reiniciamos el servicio de Apache
 systemctl restart apache2
+
+# Creamos el archivo .htaccess
+mkdir -p /var/www/html/stats/.htaccess
+
+
+
